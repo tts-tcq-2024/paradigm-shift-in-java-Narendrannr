@@ -5,29 +5,50 @@ package vitals;
 */
 
 public class Main {
-       static boolean isTemperatureOk(float temperature) {
-        return temperature >= 0 && temperature <= 45;
+    static boolean batteryIsOk(float temperature, float soc, float chargeRate) {
+        return temperatureIsOk(temperature) && stateIsOk(soc) && chargeIsOk(chargeRate);
     }
 
-    static boolean isSocOk(float soc) {
-        return soc >= 20 && soc <= 80;
+    static boolean temperatureIsOk(float temperature) {
+        boolean validTemperatureValue = true;
+        if (temperature < 0 || temperature > 45) {
+            System.out.println("Temperature is out of range!");
+            validTemperatureValue = false;
+        }
+        return validTemperatureValue;
     }
 
-    static boolean isChargeRateOk(float chargeRate) {
-        return chargeRate <= 0.8;
+    static boolean stateIsOk(float soc) {
+        boolean validStateValue = true;
+        if (soc < 20 || soc > 80) {
+            System.out.println("State of Charge is out of range!");
+            validStateValue = false;
+        }
+        return validStateValue;
     }
 
-    static boolean isBatteryOk(float temperature, float soc, float chargeRate) {
-        return isTemperatureOk(temperature) && isSocOk(soc) && isChargeRateOk(chargeRate);
+    static boolean chargeIsOk(float chargeRate) {
+        boolean validChargeValue = true;
+        if (chargeRate > 0.8) {
+            System.out.println("Charge Rate is out of range!");
+            validChargeValue = false;
+        }
+        return validChargeValue;
     }
 
     public static void main(String[] args) {
-        assert (isBatteryOk(25, 70, 0.7f));
-        assert (isBatteryOk(50, 85, 0.0f));
-        assert (isBatteryOk(0, 20, 0.0f));  
-        assert (isBatteryOk(45, 50, 0.7f));  
-        assert (isBatteryOk(25, 15, 0.7f));  
-        assert (isBatteryOk(25, 85, 0.7f));  
-        assert (isBatteryOk(25, 50, 1.0f));
+        assert (batteryIsOk(25, 70, 0.7f));
+        assert (batteryIsOk(0, 20, 0.0f));
+        assert (batteryIsOk(45, 80, 0.8f));
+        
+        assert (!batteryIsOk(25, 10, 0.7f));
+        assert (!batteryIsOk(25, 70, 0.9f));
+        assert (!batteryIsOk(50, 85, 0.0f));
+        assert (!batteryIsOk(-1, 70, 0.5f));
+        assert (!batteryIsOk(25, 85, 0.5f));
+        assert (!batteryIsOk(25, 15, 0.5f));
+        assert (batteryIsOk(25, 70, 0.5f));
+        
+        System.out.println("All tests passed.");
     }
 }
