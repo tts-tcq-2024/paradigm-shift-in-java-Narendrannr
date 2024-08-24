@@ -15,4 +15,12 @@ public class GermanLanguage implements Language {
     public String chargeRateOutOfRange() {
         return "Die Ladegeschwindigkeit liegt außerhalb des Bereichs!";
     }
+
+    public String warningMessage(String parameterName, String condition) {
+        return "Warnung: " + parameterName + " ist " + condition + "!";
+    }
+
+    public String breachMessage(String parameterName, String condition) {
+        return "Fehler: " + parameterName + " ist " + condition + "!";
+    }
 }
