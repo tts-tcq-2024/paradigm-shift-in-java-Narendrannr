@@ -1,7 +1,6 @@
 package vitals;
 
 public interface Language {
-	String temperatureOutOfRange();
-    String socOutOfRange();
-    String chargeRateOutOfRange();
+    String warningMessage(String parameterName, String condition);
+    String breachMessage(String parameterName, String condition);
 }
